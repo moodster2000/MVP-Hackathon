@@ -30,14 +30,14 @@ const PixelMonster = () => (
 const MonsterDetails = ({ name = "moodi", description = "taco" }) => {
     const [degenLevel, setDegenLevel] = useState(50);
     const [showBattle, setShowBattle] = useState(false);
-  
+
     if (showBattle) {
       return <UpcomingFight player1={name} player2="Rizzler" />;
     }
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white flex flex-col px-6">
+      <div className="min-h-screen flex flex-col px-6">
         {/* Header */}
         <div className="pt-8 space-y-1">
           <div className="text-4xl font-mono">Meet</div>

@@ -27,7 +27,7 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
   }
 
   const PixelCactus = () => (
-    <motion.div 
+    <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       className="w-32 h-32"
@@ -47,7 +47,7 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
   );
 
   const PixelMuffin = () => (
-    <motion.div 
+    <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       className="w-32 h-32"
@@ -69,8 +69,8 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
   );
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6">
-      <h1 className="text-4xl font-mono mt-8 mb-12" style={{ 
+    <div className="min-h-screen flex flex-col px-6">
+      <h1 className="text-4xl font-mono mt-8 mb-12" style={{
         fontFamily: 'monospace',
         letterSpacing: '-0.5px',
         wordSpacing: '-8px',
@@ -81,8 +81,8 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
 
       <div className="flex-1 flex flex-col items-center justify-center space-y-8">
         <PixelCactus />
-        
-        <motion.div 
+
+        <motion.div
           className="text-2xl font-mono"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -90,7 +90,7 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
           {player1}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-4xl font-mono"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -99,8 +99,8 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
         </motion.div>
 
         <PixelMuffin />
-        
-        <motion.div 
+
+        <motion.div
           className="text-2xl font-mono"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -108,7 +108,7 @@ const UpcomingFight = ({ player1 = "Moodi", player2 = "Rizzler", onComplete }) =
           {player2}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-xl font-mono mt-8"
           animate={{ opacity: isBlinking ? 1 : 0.3 }}
           transition={{ duration: 0.2 }}

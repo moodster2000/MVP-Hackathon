@@ -14,6 +14,16 @@ const SakimonCreator = () => {
     if (name) setStep(2);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      if (step === 1 && name) {
+        handleNext();
+      } else if (step === 2 && description) {
+        handleHatch();
+      }
+    }
+  };
+
   const handleHatch = () => {
     if (description) {
       setIsHatching(true);
@@ -31,12 +41,21 @@ const SakimonCreator = () => {
   return (
     <AnimatePresence>
       <motion.div
-        className="min-h-screen bg-white flex flex-col px-8"
+        className="min-h-screen flex flex-col px-8"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <div className="max-w-md mx-auto w-full flex-1 flex flex-col">
           <div className="flex-1 flex flex-col items-center justify-center">
+            {step === 2 && (
+              <div className="mb-8 text-3xl"
+                style={{
+                  fontFamily: 'PRESS START 2P',
+                  letterSpacing: '0px',
+                }}>
+                {`Hello ${name}!`}
+              </div>
+            )}
             <PixelEgg isHatching={isHatching} />
 
             <div className="w-full mt-12">
@@ -44,18 +63,22 @@ const SakimonCreator = () => {
                 <label className="block text-2xl"
                   style={{
                     fontFamily: 'PRESS START 2P',
-                    letterSpacing: '-1px',
+                    letterSpacing: '0px',
                     lineHeight: '1.5'
                   }}>
-                  {step === 1 ? "What is the name of your mon?" : 'Describe your mon'}
+                  {step === 1 ? "What's your mon's name?" : 'Please describe your mon'}
                 </label>
                 <input
                   type="text"
-                  value={step === 1 ? name : description}
-                  onChange={(e) => step === 1 ? setName(e.target.value) : setDescription(e.target.value)}
-                  className="w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border-none"
-                  placeholder={step === 1 ? "Enter Name" : "e.g: electric rat or spicy muffin"}
-                  style={{ fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}
+                  value={step === 1 ? name.toUpperCase() : description}
+                  onChange={(e) => step === 1 ? setName(e.target.value.toUpperCase()) : setDescription(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${step === 1 ? 'text-center' : ''}`}
+                  placeholder={step === 1 ? "e.g. HarryPotterMonInu" : "e.g: electric rat or spicy muffin"}
+                  style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+                    textAlign: step === 1 ? 'center' : 'left'
+                  }}
                 />
               </div>
             </div>

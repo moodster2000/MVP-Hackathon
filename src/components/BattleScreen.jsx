@@ -77,8 +77,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
     setBattleLog((prev) =>
       [
         ...prev,
-        `${attacker === "player1" ? player1 : player2} used ${
-          selectedAttack.name
+        `${attacker === "player1" ? player1 : player2} used ${selectedAttack.name
         }!`,
       ].slice(-3)
     );
@@ -152,9 +151,9 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       animate={
         currentAttacker === "player1"
           ? {
-              x: [0, 20, 0],
-              transition: { duration: 0.3 },
-            }
+            x: [0, 20, 0],
+            transition: { duration: 0.3 },
+          }
           : {}
       }
       className="w-32 h-32"
@@ -180,9 +179,9 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       animate={
         currentAttacker === "player2"
           ? {
-              x: [0, -20, 0],
-              transition: { duration: 0.3 },
-            }
+            x: [0, -20, 0],
+            transition: { duration: 0.3 },
+          }
           : {}
       }
       className="w-32 h-32"
@@ -204,7 +203,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
   );
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6 relative">
+    <div className="min-h-screen flex flex-col px-6 relative">
       <div className="flex-1 flex flex-col">
         {/* Top Pokemon */}
         <div className="mt-8 flex flex-col items-end">

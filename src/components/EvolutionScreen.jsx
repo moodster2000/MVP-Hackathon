@@ -22,7 +22,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   }, []);
 
   const PixelMonster = ({ isEvolving }) => (
-    <motion.div 
+    <motion.div
       animate={isEvolving ? {
         scale: [1, 1.2, 1],
         rotate: [0, 5, -5, 0],
@@ -78,29 +78,29 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   );
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center px-6">
-      <motion.div 
+    <div className="min-h-screen flex flex-col items-center px-6">
+      <motion.div
         className="text-4xl font-mono mt-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
         Winner
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         className="text-2xl font-mono mt-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        ({name})
+        {name}
       </motion.div>
 
       <div className="flex-1 flex flex-col items-center justify-center">
         <PixelMonster isEvolving={evolutionPhase === 'evolving'} />
-        
+
         <AnimatePresence mode="wait">
           {evolutionPhase === 'evolving' ? (
-            <motion.div 
+            <motion.div
               key="evolving"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -110,7 +110,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
               {name} is evolving...
             </motion.div>
           ) : evolutionPhase === 'complete' ? (
-            <motion.div 
+            <motion.div
               key="complete"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

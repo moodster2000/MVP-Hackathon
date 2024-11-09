@@ -10,6 +10,7 @@ body {
   font-family: 'Pixelify Sans', 'Press Start 2P', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F2F5ED;
 }
 
 code {
