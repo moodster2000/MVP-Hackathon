@@ -66,18 +66,18 @@ const SakimonCreator = () => {
                     letterSpacing: '0px',
                     lineHeight: '1.5'
                   }}>
-                  {step === 1 ? "What's your mon's name?" : 'Please describe your mon'}
+                  {step === 1 ? "What's your mon's name?" : 'Your mon in two words:'}
                 </label>
                 <input
                   type="text"
-                  value={step === 1 ? name.toUpperCase() : description}
-                  onChange={(e) => step === 1 ? setName(e.target.value.toUpperCase()) : setDescription(e.target.value)}
+                  value={step === 1 ? name.toUpperCase() : description.toUpperCase()}
+                  onChange={(e) => step === 1 ? setName(e.target.value.toUpperCase()) : setDescription(e.target.value.toUpperCase())}
                   onKeyPress={handleKeyPress}
                   className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${step === 1 ? 'text-center' : ''}`}
                   placeholder={step === 1 ? "e.g. HarryPotterMonInu" : "e.g: electric rat or spicy muffin"}
                   style={{
                     fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-                    textAlign: step === 1 ? 'center' : 'left'
+                    textAlign: 'center'
                   }}
                 />
               </div>
