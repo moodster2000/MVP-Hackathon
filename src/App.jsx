@@ -9,8 +9,9 @@ import SakimonCreator from './components/SakimonCreator';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const App = () => {
-  // You can also provide the mainnet-beta or devnet cluster
-  const endpoint = useMemo(() => clusterApiUrl('devnet'), []);
+  // Get RPC URL from environment variables
+  const url = process.env.REACT_APP_HELIUS_RPC_URL;
+  const endpoint = useMemo(() => url, []);
 
   // Initialize wallet adapter
   const wallets = useMemo(() => [], []);
