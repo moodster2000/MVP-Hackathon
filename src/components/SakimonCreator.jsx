@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import PixelEgg from './PixelEgg';
-import MonsterDetails from './MonsterDetails';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import {
+  PublicKey,
+  Transaction,
+  SystemProgram,
+  LAMPORTS_PER_SOL,
+} from "@solana/web3.js";
+import PixelEgg from "./PixelEgg";
+import MonsterDetails from "./MonsterDetails";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import PixelButton from "./PixelButton";
 
 const SakimonCreator = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const [step, setStep] = useState(1);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [isHatching, setIsHatching] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -22,7 +28,7 @@ const SakimonCreator = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (step === 1 && name) {
         handleNext();
       } else if (step === 2 && description) {
@@ -32,37 +38,45 @@ const SakimonCreator = () => {
   };
 
   const handleHatch = async () => {
-    if (!description || !publicKey) return;
-
     setIsProcessing(true);
-    try {
-      // Create a test transaction (sending 0.01 SOL to a demo address)
-      const transaction = new Transaction().add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: new PublicKey('BuHRzpGi4t9ho8rtBNCKCRrPE26EG2CGsq3YiVCkhXr7'),
-          lamports: LAMPORTS_PER_SOL * 0.01, // 0.01 SOL
-        })
-      );
+    setTransactionSuccessful(true);
+    setIsHatching(true);
+    setIsProcessing(false);
+    setTimeout(() => {
+      setShowDetails(true);
+    }, 500);
+    // if (!description || !publicKey) return;
 
-      const signature = await sendTransaction(transaction, connection);
-      const confirmation = await connection.confirmTransaction(signature, 'confirmed');
+    // setIsProcessing(true);
+    // setTransactionSuccessful(true);
+    // try {
+    //   // Create a test transaction (sending 0.01 SOL to a demo address)
+    //   const transaction = new Transaction().add(
+    //     SystemProgram.transfer({
+    //       fromPubkey: publicKey,
+    //       toPubkey: new PublicKey('BuHRzpGi4t9ho8rtBNCKCRrPE26EG2CGsq3YiVCkhXr7'),
+    //       lamports: LAMPORTS_PER_SOL * 0.01, // 0.01 SOL
+    //     })
+    //   );
 
-      if (confirmation.value.err) {
-        throw new Error('Transaction failed: ' + confirmation.value.err.toString());
-      }
+    //   const signature = await sendTransaction(transaction, connection);
+    //   const confirmation = await connection.confirmTransaction(signature, 'confirmed');
 
-      setTransactionSuccessful(true);
-      setIsHatching(true);
-      setTimeout(() => {
-        setShowDetails(true);
-      }, 2000);
-    } catch (error) {
-      console.error('Transaction failed:', error);
-      alert(`Transaction failed: ${error.message}`);
-    } finally {
-      setIsProcessing(false);
-    }
+    //   if (confirmation.value.err) {
+    //     throw new Error('Transaction failed: ' + confirmation.value.err.toString());
+    //   }
+
+    //   setTransactionSuccessful(true);
+    //   setIsHatching(true);
+    //   setTimeout(() => {
+    //     setShowDetails(true);
+    //   }, 2000);
+    // } catch (error) {
+    //   console.error('Transaction failed:', error);
+    //   alert(`Transaction failed: ${error.message}`);
+    // } finally {
+    //   setIsProcessing(false);
+    // }
   };
 
   if (showDetails) {
@@ -79,11 +93,14 @@ const SakimonCreator = () => {
         <div className="max-w-md mx-auto w-full flex-1 flex flex-col">
           <div className="flex-1 flex flex-col items-center justify-center">
             {step === 2 && (
-              <div className="mb-8 text-3xl"
+              <div
+                className="mb-8 text-3xl"
                 style={{
-                  fontFamily: 'PRESS START 2P',
-                  letterSpacing: '0px',
-                }}>
+                  fontFamily: "PRESS START 2P",
+                  fontSize: "3rem",
+                  letterSpacing: "0px",
+                }}
+              >
                 {`Hello ${name}!`}
               </div>
             )}
@@ -91,24 +108,43 @@ const SakimonCreator = () => {
 
             <div className="w-full mt-12">
               <div className="space-y-6">
-                <label className="block text-2xl"
+                <label
+                  className="block text-2xl"
                   style={{
-                    fontFamily: 'PRESS START 2P',
-                    letterSpacing: '0px',
-                    lineHeight: '1.5'
-                  }}>
-                  {step === 1 ? "What's your mon's name?" : 'Your mon in two words:'}
+                    fontFamily: "PRESS START 2P",
+                    letterSpacing: "0px",
+                    lineHeight: "1.5",
+                    fontSize: "2.5rem",
+                    textAlign: "center",
+                  }}
+                >
+                  {step === 1
+                    ? "What's your mon's name?"
+                    : "Your mon in two words:"}
                 </label>
                 <input
                   type="text"
-                  value={step === 1 ? name.toUpperCase() : description.toUpperCase()}
-                  onChange={(e) => step === 1 ? setName(e.target.value.toUpperCase()) : setDescription(e.target.value.toUpperCase())}
+                  value={
+                    step === 1 ? name.toUpperCase() : description.toUpperCase()
+                  }
+                  onChange={(e) =>
+                    step === 1
+                      ? setName(e.target.value.toUpperCase())
+                      : setDescription(e.target.value.toUpperCase())
+                  }
                   onKeyPress={handleKeyPress}
-                  className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${step === 1 ? 'text-center' : ''}`}
-                  placeholder={step === 1 ? "e.g. HarryPotterMonInu" : "e.g: electric rat or spicy muffin"}
+                  className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${
+                    step === 1 ? "text-center" : ""
+                  }`}
+                  placeholder={
+                    step === 1
+                      ? "e.g. HarryPotterMonInu"
+                      : "e.g: electric rat or spicy muffin"
+                  }
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-                    textAlign: 'center'
+                    fontFamily: "PRESS START 2P",
+                    textAlign: "center",
+                    fontSize: "1.8rem",
                   }}
                 />
               </div>
@@ -117,39 +153,37 @@ const SakimonCreator = () => {
 
           <div className="w-full mb-8 mt-12">
             {step === 1 ? (
-              <button
+              <PixelButton
                 onClick={handleNext}
                 disabled={!name}
-                className={`w-full p-4 rounded-3xl text-white text-xl ${name ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-gray-300'
-                  }`}
+                className={`w-full p-4 text-xl ${!name ? "opacity-50" : ""}`}
               >
                 Next
-              </button>
+              </PixelButton>
             ) : !publicKey ? (
               <div className="flex justify-center">
                 <WalletMultiButton
-                  className="w-full p-4 rounded-3xl text-white text-xl bg-indigo-500 hover:bg-indigo-600"
+                  className="w-full md:w-[500px] bg-[#6B68C7] hover:bg-[#5856BC] text-white font-mono text-4xl py-4 px-8 rounded-2xl transition-colors duration-200"
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-                    justifyContent: 'center',
+                    fontFamily: "PRESS START 2P",
+                    fontSize: "1rem",
                   }}
                 />
               </div>
             ) : (
-              <button
+              <PixelButton
                 onClick={handleHatch}
                 disabled={!description || isProcessing}
-                className={`w-full p-4 rounded-3xl text-white text-xl ${description && !isProcessing
-                  ? 'bg-indigo-500 hover:bg-indigo-600'
-                  : 'bg-gray-300'
-                  }`}
+                className={`w-full p-4 text-xl ${
+                  !description || isProcessing ? "opacity-50" : ""
+                }`}
               >
                 {isProcessing
-                  ? 'Processing...'
+                  ? "Processing..."
                   : transactionSuccessful
-                    ? 'Hatching...'
-                    : 'Hatch for 0.01 SOL'}
-              </button>
+                  ? "Hatching..."
+                  : "Hatch for 0.01 SOL"}
+              </PixelButton>
             )}
           </div>
         </div>

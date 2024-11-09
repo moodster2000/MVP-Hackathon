@@ -1,18 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import PixelButton from './PixelButton';
 const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-8 bg-gradient-to-b from-[#F2F5ED] to-blue-100">
-      <div className="max-w-md w-full text-center space-y-6">
+      <div>
         <h1
-          className="text-4xl mb-2"
           style={{
+            textAlign: "center",
             fontFamily: 'PRESS START 2P',
-            letterSpacing: '0px',
-            lineHeight: '1.5'
+            letterSpacing: '5px',
+            fontSize: `3rem`
           }}
         >
           MONSTERS.FUN
@@ -23,7 +23,9 @@ const LandingPage = () => {
           style={{
             fontFamily: 'PRESS START 2P',
             letterSpacing: '0px',
-            lineHeight: '1.5'
+            lineHeight: '1.5',
+            textAlign: "center",
+            fontSize: `2rem`
           }}
         >
           The Next-generation Moncoins
@@ -36,27 +38,12 @@ const LandingPage = () => {
         />
 
         <div className="space-y-4">
-          <button
-            onClick={() => navigate('/create')}
-            className="w-full p-4 rounded-3xl bg-indigo-500 hover:bg-indigo-600 text-white"
-            style={{
-              fontFamily: 'PRESS START 2P',
-              fontSize: '1rem'
-            }}
-          >
-            Hatch Your Mon
-          </button>
-
-          <button
-            onClick={() => navigate('/view')}
-            className="w-full p-4 rounded-3xl bg-indigo-500 hover:bg-indigo-600 text-white"
-            style={{
-              fontFamily: 'PRESS START 2P',
-              fontSize: '1rem'
-            }}
-          >
+          <PixelButton to="/create">
+            Create Your Mon
+          </PixelButton>
+          <PixelButton to = "view">
             View Mons
-          </button>
+          </PixelButton>
         </div>
       </div>
     </div>

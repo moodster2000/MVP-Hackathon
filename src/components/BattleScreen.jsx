@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import EvolutionScreen from "./EvolutionScreen";
+import cacti from './imgs/cacti.png';
+import rizzler from './imgs/rizzler.png';
 
 const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
   const [player1Health, setPlayer1Health] = useState(99);
@@ -18,12 +20,12 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
 
   const attacks = {
     player1: [
-      { type: "grass", name: "Vine Whip", damage: 20, emoji: "🌿" },
-      { type: "normal", name: "Tackle", damage: 15, emoji: "👊" },
+      { type: "grass", name: "Vine Whip", damage: 45, emoji: "🌿" },
+      { type: "normal", name: "Tackle", damage: 40, emoji: "👊" },
     ],
     player2: [
-      { type: "fire", name: "Flame Burst", damage: 20, emoji: "🔥" },
-      { type: "normal", name: "Body Slam", damage: 15, emoji: "💥" },
+      { type: "fire", name: "Flame Burst", damage: 25, emoji: "🔥" },
+      { type: "normal", name: "Body Slam", damage: 20, emoji: "💥" },
     ],
   };
 
@@ -31,7 +33,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
     if (!isGameOver) {
       const battleTurn = setTimeout(() => {
         performAttack();
-      }, 2000);
+      }, 1000);
       return () => clearTimeout(battleTurn);
     }
   }, [currentAttacker, isGameOver]);
@@ -104,7 +106,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
     >
       {type === "grass" && (
         <motion.div
-          className="text-6xl"
+          className="text-9xl"
           animate={{ rotate: 360 }}
           transition={{ duration: 0.5 }}
         >
@@ -113,7 +115,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       )}
       {type === "fire" && (
         <motion.div
-          className="text-6xl"
+          className="text-9xl"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
         >
@@ -122,8 +124,8 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       )}
       {type === "normal" && (
         <motion.div
-          className="text-6xl"
-          animate={{ x: [-20, 20, 0] }}
+        className="text-9xl"
+        animate={{ x: [-20, 20, 0] }}
           transition={{ duration: 0.3 }}
         >
           💥
@@ -146,7 +148,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
     </div>
   );
 
-  const PixelCactus = () => (
+  const Character1 = () => (
     <motion.div
       animate={
         currentAttacker === "player1"
@@ -156,25 +158,17 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
           }
           : {}
       }
-      className="w-32 h-32"
+      className="w-[45vw] h-[45vw]"
     >
-      {/* Your existing cactus SVG */}
-      <svg
-        viewBox="0 0 32 32"
-        className="w-full h-full"
-        shapeRendering="crispEdges"
-      >
-        <rect x="8" y="4" width="16" height="24" fill="#86efac" />
-        <rect x="6" y="8" width="4" height="4" fill="#86efac" />
-        <rect x="22" y="8" width="4" height="4" fill="#86efac" />
-        <rect x="12" y="12" width="4" height="4" fill="#000000" />
-        <rect x="20" y="12" width="4" height="4" fill="#000000" />
-        <rect x="16" y="18" width="4" height="4" fill="#fca5a5" />
-      </svg>
+      <img 
+        src={cacti} 
+        alt={player1}
+        className="w-full h-full object-contain"
+      />
     </motion.div>
   );
 
-  const PixelMuffin = () => (
+  const Character2 = () => (
     <motion.div
       animate={
         currentAttacker === "player2"
@@ -184,21 +178,13 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
           }
           : {}
       }
-      className="w-32 h-32"
+      className="w-[45vw] h-[45vw]"
     >
-      {/* Your existing muffin SVG */}
-      <svg
-        viewBox="0 0 32 32"
-        className="w-full h-full"
-        shapeRendering="crispEdges"
-      >
-        <rect x="8" y="8" width="16" height="16" fill="#fcd34d" />
-        <rect x="6" y="12" width="20" height="4" fill="#f87171" />
-        <rect x="10" y="6" width="4" height="4" fill="#60a5fa" />
-        <rect x="18" y="6" width="4" height="4" fill="#ef4444" />
-        <rect x="12" y="16" width="4" height="4" fill="#000000" />
-        <rect x="20" y="16" width="4" height="4" fill="#000000" />
-      </svg>
+      <img 
+        src={rizzler} 
+        alt={player2}
+        className="w-full h-full object-contain"
+      />
     </motion.div>
   );
 
@@ -207,13 +193,18 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       <div className="flex-1 flex flex-col">
         {/* Top Pokemon */}
         <div className="mt-8 flex flex-col items-end">
-          <h2 className="text-2xl font-mono mb-2">{player2}</h2>
+          <h2 
+            className="text-2xl mb-2"
+            style={{ fontFamily: "PRESS START 2P", fontSize: "2.5rem" }}
+          >
+            {player2}
+          </h2>
           <HealthBar health={player2Health} className="mb-4" />
-          <PixelMuffin />
+          <Character2 />
         </div>
 
-        {/* Battle Log */}
-        <div className="my-4 flex-1 flex flex-col justify-center">
+        {/* Battle Effects */}
+        <div className="flex-1 flex items-center justify-center">
           <AnimatePresence mode="wait">
             {attackEffect && (
               <motion.div
@@ -226,26 +217,36 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <div className="bg-gray-50 rounded-lg p-4 font-mono text-sm">
-            {battleLog.map((log, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-1"
-              >
-                {log}
-              </motion.div>
-            ))}
-          </div>
         </div>
 
         {/* Bottom Pokemon */}
         <div className="mb-8">
-          <PixelCactus />
-          <h2 className="text-2xl font-mono mt-2">{player1}</h2>
+          <Character1 />
+          <h2 
+            className="text-2xl mt-2"
+            style={{ fontFamily: "PRESS START 2P", fontSize: "2.5rem" }}
+          >
+            {player1}
+          </h2>
           <HealthBar health={player1Health} className="mt-2" />
+        </div>
+      </div>
+
+      {/* Battle Log - Moved to bottom */}
+      <div className="bg-gray-50 rounded-lg p-4 mb-8">
+        <div 
+          className="text-sm space-y-1"
+          style={{ fontFamily: "PRESS START 2P", fontSize: "1.5rem" }}
+        >
+          {battleLog.map((log, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              {log}
+            </motion.div>
+          ))}
         </div>
       </div>
 
@@ -256,7 +257,10 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
           animate={{ opacity: 1 }}
           className="absolute inset-0 bg-black/50 flex items-center justify-center"
         >
-          <div className="bg-white p-8 rounded-lg text-center font-mono">
+          <div 
+            className="bg-white p-8 rounded-lg text-center"
+            style={{ fontFamily: "PRESS START 2P" }}
+          >
             <h2 className="text-2xl mb-4">Battle Over!</h2>
             <p className="text-xl">
               {player1Health <= 0 ? `${player2} Wins!` : `${player1} Wins!`}
