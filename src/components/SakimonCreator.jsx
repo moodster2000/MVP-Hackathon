@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import PixelEgg from './PixelEgg';
 import MonsterDetails from './MonsterDetails';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const SakimonCreator = () => {
+  const { connection } = useConnection();
+  const { publicKey, sendTransaction } = useWallet();
   const [step, setStep] = useState(1);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isHatching, setIsHatching] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [transactionSuccessful, setTransactionSuccessful] = useState(false);
 
   const handleNext = () => {
     if (name) setStep(2);
@@ -24,13 +31,37 @@ const SakimonCreator = () => {
     }
   };
 
-  const handleHatch = () => {
-    if (description) {
+  const handleHatch = async () => {
+    if (!description || !publicKey) return;
+
+    setIsProcessing(true);
+    try {
+      // Create a test transaction (sending 0.01 SOL to a demo address)
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey('BuHRzpGi4t9ho8rtBNCKCRrPE26EG2CGsq3YiVCkhXr7'),
+          lamports: LAMPORTS_PER_SOL * 0.01, // 0.01 SOL
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection);
+      const confirmation = await connection.confirmTransaction(signature, 'confirmed');
+
+      if (confirmation.value.err) {
+        throw new Error('Transaction failed: ' + confirmation.value.err.toString());
+      }
+
+      setTransactionSuccessful(true);
       setIsHatching(true);
-      // Trigger the transition after a delay
       setTimeout(() => {
         setShowDetails(true);
-      }, 2000); // Adjust timing as needed
+      }, 2000);
+    } catch (error) {
+      console.error('Transaction failed:', error);
+      alert(`Transaction failed: ${error.message}`);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -84,16 +115,43 @@ const SakimonCreator = () => {
             </div>
           </div>
 
-          <button
-            onClick={step === 1 ? handleNext : handleHatch}
-            disabled={step === 1 ? !name : !description}
-            className={`w-full p-4 rounded-3xl text-white text-xl mb-8 mt-12 ${(step === 1 ? name : description)
-              ? 'bg-indigo-500 hover:bg-indigo-600'
-              : 'bg-gray-300'
-              }`}
-          >
-            {step === 1 ? 'Next' : 'Hatch'}
-          </button>
+          <div className="w-full mb-8 mt-12">
+            {step === 1 ? (
+              <button
+                onClick={handleNext}
+                disabled={!name}
+                className={`w-full p-4 rounded-3xl text-white text-xl ${name ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-gray-300'
+                  }`}
+              >
+                Next
+              </button>
+            ) : !publicKey ? (
+              <div className="flex justify-center">
+                <WalletMultiButton
+                  className="w-full p-4 rounded-3xl text-white text-xl bg-indigo-500 hover:bg-indigo-600"
+                  style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+                    justifyContent: 'center',
+                  }}
+                />
+              </div>
+            ) : (
+              <button
+                onClick={handleHatch}
+                disabled={!description || isProcessing}
+                className={`w-full p-4 rounded-3xl text-white text-xl ${description && !isProcessing
+                  ? 'bg-indigo-500 hover:bg-indigo-600'
+                  : 'bg-gray-300'
+                  }`}
+              >
+                {isProcessing
+                  ? 'Processing...'
+                  : transactionSuccessful
+                    ? 'Hatching...'
+                    : 'Hatch for 0.01 SOL'}
+              </button>
+            )}
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>
