@@ -27,55 +27,49 @@ const PixelMonster = () => (
   </motion.div>
 );
 
-const MonsterDetails = ({ name = "moodi", description = "taco" }) => {
-    const [degenLevel, setDegenLevel] = useState(50);
-    const [showBattle, setShowBattle] = useState(false);
+const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
+  const [showBattle, setShowBattle] = useState(false);
 
-    if (showBattle) {
-      return <UpcomingFight player1={name} player2="Rizzler" />;
-    }
+  if (showBattle) {
+    return <UpcomingFight player1={name} player2="Rizzler" />;
+  }
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col px-6">
-        {/* Header */}
-        <div className="pt-8 space-y-1">
-          <div className="text-4xl font-mono">Meet</div>
-          <div className="text-2xl font-mono">({name})</div>
+      <div className="min-h-screen flex flex-col items-center px-6 py-12 max-w-sm mx-auto">
+        {/* Simplified header with monospace font */}
+        <div className="font-mono text-center text-2xl mb-8">
+          Meet <span className="text-gray-500">{name}</span>,
+          <br />
+          your <span className="text-gray-500">{description}</span>
         </div>
 
-        {/* Monster */}
         <PixelMonster />
 
-        {/* Info */}
-        <div className="font-mono space-y-6">
-          <div className="text-xl">$10k MKT CAP</div>
-
-          <div>Type: {description}</div>
-
-          <div className="space-y-2">
-            <div>Personality:</div>
-            <ul className="list-disc pl-6">
-              <li>kek (10%)</li>
-              <li>key (90%)</li>
-            </ul>
+        {/* Stats with monospace style and better spacing */}
+        <div className="font-mono w-full space-y-2 mb-12">
+          <div className="flex justify-between">
+            <span>Bullish</span>
+            <span>(10%)</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Moody</span>
+            <span>(60%)</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Fast</span>
+            <span>(30%)</span>
           </div>
         </div>
 
-        {/* Bottom section with buttons and slider */}
-        <div className="mt-auto mb-8 relative">
-          {/* Buttons */}
-          <div className="space-y-4 mt-4">
-            <button
-              onClick={() => setShowBattle(true)}
-              className="w-full p-4 rounded-full bg-indigo-400 text-white text-xl font-mono"
-            >
-              Battle
-            </button>
-            <button className="w-full p-4 rounded-full bg-indigo-400 text-white text-xl font-mono">
-              Buy
-            </button>
-          </div>
+        {/* Buttons */}
+        <div className="w-full mt-auto space-y-4">
+          <button
+            onClick={() => setShowBattle(true)}
+            className="w-full p-4 rounded-full bg-indigo-400 text-white text-xl font-mono"
+          >
+            Battle
+          </button>
         </div>
       </div>
     </ThemeProvider>
