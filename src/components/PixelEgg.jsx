@@ -5,13 +5,14 @@ const PixelEgg = ({ isHatching = false }) => (
   <motion.div
     className="w-32 h-32 mx-auto my-12"
     animate={isHatching ? {
-      x: [-2, 2, -2, 2, 0],
-      y: [-1, 1, -1, 1, 0],
+      x: [-4, 4, -4, 4, 0],
+      y: [-3, 3, -3, 3, 0],
+      rotate: [-2, 2, -2, 2, 0],
     } : {
-      scale: [1, 1.02, 1],
+      scale: [1, 1.05, 1],
     }}
     transition={{
-      duration: isHatching ? 0.3 : 2,
+      duration: isHatching ? 0.2 : 1.5,
       repeat: Infinity,
       repeatType: "reverse"
     }}
