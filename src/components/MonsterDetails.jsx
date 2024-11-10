@@ -6,7 +6,7 @@ import PixelButton from "./PixelButton";
 import cacti from "./imgs/cacti.png";
 import { useNavigate } from "react-router-dom";
 
-const PixelMonster = () => (
+export const PixelMonster = () => (
   <motion.div
     initial={{ scale: 0 }}
     animate={{ scale: 1 }}
@@ -90,12 +90,7 @@ const BattleInfo = ({ name, onViewBattle, marketCap = "10,000" }) => {
 };
 
 const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
-  const [moveToFight, setMoveToFight] = useState(false);
-  const [showBattle, setShowBattle] = useState(false);
-
-  if (moveToFight) {
-    return <UpcomingFight player1={name} player2="Rizzler" />;
-  }
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider>
@@ -115,63 +110,53 @@ const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
 
         <PixelMonster />
 
-        {!showBattle ? (
-          <>
-            {/* Stats section */}
-            <PixelMeter value={40} />
-            <div
-              className="font-mono w-full"
-              style={{
-                fontFamily: "PRESS START 2P",
-                fontSize: "2rem",
-                letterSpacing: "0px",
-              }}
-            >
-              <motion.div
-                className="flex justify-between"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <span>Fast</span>
-                <span>(10%)</span>
-              </motion.div>
-              <motion.div
-                className="flex justify-between"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <span>Prickly</span>
-                <span>(90%)</span>
-              </motion.div>
-              <motion.div
-                className="flex justify-between"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <span>Aggressive</span>
-                <span>(40%)</span>
-              </motion.div>
-            </div>
+        {/* Stats section */}
+        <PixelMeter value={40} />
+        <div
+          className="font-mono w-full"
+          style={{
+            fontFamily: "PRESS START 2P",
+            fontSize: "2rem",
+            letterSpacing: "0px",
+          }}
+        >
+          <motion.div
+            className="flex justify-between"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <span>Fast</span>
+            <span>(10%)</span>
+          </motion.div>
+          <motion.div
+            className="flex justify-between"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <span>Prickly</span>
+            <span>(90%)</span>
+          </motion.div>
+          <motion.div
+            className="flex justify-between"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <span>Aggressive</span>
+            <span>(40%)</span>
+          </motion.div>
+        </div>
 
-            <div className="w-full mt-auto">
-              <PixelButton
-                onClick={() => setShowBattle(true)}
-                className="w-full p-4 text-xl"
-              >
-                Next
-              </PixelButton>
-            </div>
-          </>
-        ) : (
-          <BattleInfo
-            name={name}
-            onViewBattle={() => setMoveToFight(true)}
-            marketCap="17,000"
-          />
-        )}
+        <div className="w-full mt-auto">
+          <PixelButton
+            onClick={() => navigate(`/info/${name}`)}
+            className="w-full p-4 text-xl"
+          >
+            Next
+          </PixelButton>
+        </div>
       </div>
     </ThemeProvider>
   );

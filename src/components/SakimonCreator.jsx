@@ -84,7 +84,7 @@ const SakimonCreator = () => {
                     }`}
                   placeholder={
                     step === 1
-                      ? "e.g. PotterInu"
+                      ? "e.g. sonicwifhat"
                       : "e.g. spicy muffin"
                   }
                   style={{
