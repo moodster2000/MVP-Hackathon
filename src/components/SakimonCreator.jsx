@@ -35,7 +35,7 @@ const SakimonCreator = () => {
     setIsProcessing(false);
     setTimeout(() => {
       setShowDetails(true);
-    }, 500);
+    }, 1500);
   };
 
   if (showDetails) {
