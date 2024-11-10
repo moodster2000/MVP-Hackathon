@@ -77,11 +77,11 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
     
     setTimeout(() => {
       setEvolutionPhase('evolving');
-    }, 500);
+    }, 400);
     setTimeout(() => {
       setStage('complete');
       setEvolutionPhase('complete');
-    }, 7000);
+    }, 2500);
   };
 
   const OutcomeStage = () => {
