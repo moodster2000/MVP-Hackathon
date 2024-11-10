@@ -86,7 +86,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
 
   const OutcomeStage = () => {
     const [count, setCount] = useState(17);
-    const targetCount = 19;
+    const targetCount = 20;
 
     useEffect(() => {
       // Animate the counter
