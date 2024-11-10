@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PixelButton from "./PixelButton";
 
 const BattleInfo = ({ name, marketCap = "10,000" }) => {
-  const [timeLeft, setTimeLeft] = useState(5);
+  const [timeLeft, setTimeLeft] = useState(4);
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -28,15 +28,6 @@ const BattleInfo = ({ name, marketCap = "10,000" }) => {
         style={{ fontFamily: "PRESS START 2P", marginBottom: "5%" }}
       >
         Battle starts in {timeLeft} sec
-      </div>
-
-      <div className="w-full space-y-4">
-        <PixelButton
-          onClick={() => { }}
-          className="w-full p-4 text-xl"
-        >
-          Buy ${name}
-        </PixelButton>
       </div>
     </div>
   );
