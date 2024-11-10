@@ -26,13 +26,12 @@ const PixelMeter = ({ value = 40 }) => {
         {[...Array(totalBars)].map((_, index) => (
           <div
             key={index}
-            className={`w-8 h-12 ${
-              index < filledBars ? 'bg-black' : 'bg-gray-300'
-            } rounded-sm`}
+            className={`w-8 h-12 ${index < filledBars ? 'bg-black' : 'bg-gray-300'
+              } rounded-sm`}
           />
         ))}
       </div>
-      <div 
+      <div
         className="mt-2 text-2xl"
         style={{ fontFamily: "PRESS START 2P" }}
       >
@@ -57,20 +56,20 @@ const BattleInfo = ({ name, onViewBattle, marketCap = "10,000" }) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
-      <div 
+      <div
         className="text-center"
-        style={{marginTop: "25%", fontSize: "2.3rem", fontFamily: "PRESS START 2P" }}
+        style={{ marginTop: "25%", fontSize: "2.3rem", fontFamily: "PRESS START 2P" }}
       >
         ${marketCap} MKT CAP
       </div>
-      
-      <div 
+
+      <div
         className="text-3xl text-center"
         style={{ fontFamily: "PRESS START 2P", marginBottom: "5%" }}
       >
         Next Fight in {timeLeft} sec
       </div>
-      
+
       <div className="w-full space-y-4">
         <PixelButton
           onClick={() => onViewBattle()}
@@ -78,9 +77,9 @@ const BattleInfo = ({ name, onViewBattle, marketCap = "10,000" }) => {
         >
           View Battle
         </PixelButton>
-        
+
         <PixelButton
-          onClick={() => {}}
+          onClick={() => { }}
           className="w-full p-4 text-xl"
         >
           Buy ${name}
@@ -112,18 +111,10 @@ const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
           >
             Meet {name}
           </div>
-          <span
-            className="text-gray-500"
-            style={{
-              fontSize: "2rem",
-            }}
-          >
-            Your {description}
-          </span>
         </div>
 
         <PixelMonster />
-        
+
         {!showBattle ? (
           <>
             {/* Stats section */}
@@ -136,16 +127,16 @@ const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
                 letterSpacing: "0px",
               }}
             >
-              <motion.div 
+              <motion.div
                 className="flex justify-between"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <span>Speed</span>
-                <span>(5%)</span>
+                <span>Fast</span>
+                <span>(10%)</span>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex justify-between"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -154,13 +145,13 @@ const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
                 <span>Prickly</span>
                 <span>(90%)</span>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex justify-between"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <span>Aggression</span>
+                <span>Aggressive</span>
                 <span>(40%)</span>
               </motion.div>
             </div>
@@ -175,7 +166,7 @@ const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
             </div>
           </>
         ) : (
-          <BattleInfo 
+          <BattleInfo
             name={name}
             onViewBattle={() => setMoveToFight(true)}
             marketCap="17,000"

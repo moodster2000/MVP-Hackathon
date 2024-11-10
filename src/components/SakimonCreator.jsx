@@ -51,7 +51,7 @@ const SakimonCreator = () => {
       >
         <div className="max-w-md mx-auto w-full flex-1 flex flex-col">
           <div className="flex-1 flex flex-col items-center justify-center">
-            {step === 2 && (
+            {/* {step === 2 && (
               <div
                 className="mb-8 text-3xl"
                 style={{
@@ -62,7 +62,7 @@ const SakimonCreator = () => {
               >
                 {`Hello ${name}!`}
               </div>
-            )}
+            )} */}
             <PixelEgg isHatching={isHatching} />
 
             <div className="w-full mt-12">
@@ -78,7 +78,7 @@ const SakimonCreator = () => {
                   }}
                 >
                   {step === 1
-                    ? "What's your mon's name?"
+                    ? "What is the name of your mon?"
                     : "Your mon in two words:"}
                 </label>
                 <input
@@ -92,13 +92,12 @@ const SakimonCreator = () => {
                       : setDescription(e.target.value.toUpperCase())
                   }
                   onKeyPress={handleKeyPress}
-                  className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${
-                    step === 1 ? "text-center" : ""
-                  }`}
+                  className={`w-full p-4 rounded-3xl bg-gray-50 text-gray-600 text-xl border border-black/10 focus:outline-none focus:ring-0 focus:border-black/30 transition-colors ${step === 1 ? "text-center" : ""
+                    }`}
                   placeholder={
                     step === 1
-                      ? "e.g. HarryPotterMonInu"
-                      : "e.g: electric rat or spicy muffin"
+                      ? "e.g. PotterInu"
+                      : "e.g. spicy muffin"
                   }
                   style={{
                     fontFamily: "PRESS START 2P",
@@ -123,9 +122,8 @@ const SakimonCreator = () => {
               <PixelButton
                 onClick={handleHatch}
                 disabled={!description || isProcessing}
-                className={`w-full p-4 text-xl ${
-                  !description || isProcessing ? "opacity-50" : ""
-                }`}
+                className={`w-full p-4 text-xl ${!description || isProcessing ? "opacity-50" : ""
+                  }`}
               >
                 {isProcessing ? "Processing..." : transactionSuccessful ? "Hatching..." : "Hatch"}
               </PixelButton>
