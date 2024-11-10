@@ -51,18 +51,6 @@ const SakimonCreator = () => {
       >
         <div className="max-w-md mx-auto w-full flex-1 flex flex-col">
           <div className="flex-1 flex flex-col items-center justify-center">
-            {/* {step === 2 && (
-              <div
-                className="mb-8 text-3xl"
-                style={{
-                  fontFamily: "PRESS START 2P",
-                  fontSize: "3rem",
-                  letterSpacing: "0px",
-                }}
-              >
-                {`Hello ${name}!`}
-              </div>
-            )} */}
             <PixelEgg isHatching={isHatching} />
 
             <div className="w-full mt-12">
