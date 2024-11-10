@@ -33,7 +33,7 @@ const MonsterInfo = () => {
             marginBottom: "2%",
             lineHeightStep: "0px"
           }}>
-            Meet {name}
+            {name}
           </div>
         </div>
 

@@ -92,6 +92,21 @@ const BattleInfo = ({ name, onViewBattle, marketCap = "10,000" }) => {
 const MonsterDetails = ({ name = "moodi", description = "Grass Type" }) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        navigate(`/info/${name}`);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup listener on component unmount
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [navigate, name]);
+
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col items-center px-6 py-12 max-w-sm mx-auto">
