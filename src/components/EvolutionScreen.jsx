@@ -193,28 +193,31 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   );
 
   const CompleteStage = () => (
-    <div className="flex flex-col items-center w-full">
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.img
-          src={evolvedCacti}
-          alt="Evolved Monster"
-        />
-      </motion.div>
+    <div className="h-screen flex flex-col items-center w-full">
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.img
+            src={evolvedCacti}
+            alt="Evolved Monster"
+            className="w-[65vw] h-[65vw] object-contain"
+          />
+        </motion.div>
 
-      <motion.div
-        className="text-2xl mb-12"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        style={{ fontFamily: "PRESS START 2P", fontSize: "4rem" }}
-      >
-        $19k
-      </motion.div>
+        <motion.div
+          className="text-2xl mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          style={{ fontFamily: "PRESS START 2P", fontSize: "3rem" }}
+        >
+          $19k MKT CAP
+        </motion.div>
+      </div>
 
-      <div className="w-full space-y-4" style={{ marginTop: "38%" }}>
+      <div className="w-full space-y-4 mb-6">
         <PixelButton
           onClick={() => { }}
           className="w-full p-4 text-xl"
@@ -233,7 +236,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 py-12">
+    <div className="h-screen flex flex-col items-center px-6">
       <AnimatePresence mode="wait">
         {stage === 'outcome' && <OutcomeStage />}
         {stage === 'evolving' && <EvolvingStage />}
