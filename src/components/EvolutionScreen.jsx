@@ -14,14 +14,14 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
         scale: [1, 1.2, 1.5, 1.3],
         rotate: [0, 5, -5, 0, 5, -5, 0],
       } : {}}
-      transition={{ 
+      transition={{
         duration: 2,
         times: [0, 0.3, 0.6, 1],
         repeat: 2
       }}
       className="w-[45vw] h-[45vw] relative"
     >
-      <motion.img 
+      <motion.img
         src={cacti}
         alt="Monster"
         className="w-full h-full object-contain"
@@ -47,7 +47,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
             <motion.div
               key={i}
               className="absolute w-4 h-4 text-purple-400"
-              initial={{ 
+              initial={{
                 x: Math.random() * 100 - 50,
                 y: Math.random() * 100 - 50,
                 scale: 0
@@ -74,7 +74,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
 
   const startEvolution = () => {
     setStage('evolving');
-    
+
     setTimeout(() => {
       setEvolutionPhase('evolving');
     }, 400);
@@ -104,67 +104,60 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
     }, []);
 
     return (
-      <div className="flex flex-col items-center w-full">
-        <motion.div
-          className="text-4xl mb-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          style={{ fontFamily: "PRESS START 2P", fontSize: "3rem" }}
-        >
-          Winner:
-        </motion.div>
-        
-        <motion.div
-          className="text-3xl mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          style={{ fontFamily: "PRESS START 2P", fontSize: "4rem", marginTop: "2%"}}
-        >
-          {name}
-        </motion.div>
-
-        <motion.img 
-          src={cacti}
-          alt="Monster"
-          style={{ height: "300px" }}
-        />
-
-        <motion.div
-          className="text-2xl mb-12 flex flex-col items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          style={{ fontFamily: "PRESS START 2P", fontSize: "2rem", marginTop: "8%", marginBottom: "45%" }}
-        >
-          <div className="flex items-center gap-2">
-            <span>MKT CAP: $</span>
-            <motion.span
-              key={count}
-              initial={{ scale: 1 }}
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 0.2 }}
-            >
-              {count.toFixed(1)}
-            </motion.span>
-            <span>k</span>
-          </div>
+      <div className="h-screen flex flex-col items-center w-full">
+        <div className="flex-1 flex flex-col items-center justify-center">
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="text-green-500 mt-2"
+            className="text-4xl mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{ fontFamily: "PRESS START 2P", fontSize: "3rem" }}
           >
-            <motion.span
-              animate={{ y: [-2, 2, -2] }}
-              transition={{ duration: 0.6, repeat: Infinity }}
-            >
-              ⬆️ +{(targetCount - 17).toFixed(1)}k
-            </motion.span>
+            {name} WON!
           </motion.div>
-        </motion.div>
 
-        <div className="w-full space-y-4">
+          <motion.img
+            src={cacti}
+            alt="Monster"
+            style={{ height: "300px" }}
+          />
+
+          <motion.div
+            className="text-2xl flex flex-col items-center mt-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{ fontFamily: "PRESS START 2P", fontSize: "4rem" }}
+          >
+            <div className="flex items-center gap-2">
+              <motion.span
+                key={count}
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 0.2 }}
+              >
+                ${count.toFixed(3)}
+              </motion.span>
+            </div>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.5 }}
+              className="text-green-500 mt-6"
+              style={{ fontFamily: "PRESS START 2P", fontSize: "2.5rem" }}
+            >
+              <motion.span
+                animate={{ y: [-2, 2, -2] }}
+                transition={{ duration: 0.6, repeat: Infinity }}
+              >
+                +{(targetCount - 17).toFixed()}k
+              </motion.span>
+              <span> MKT CAP</span>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div className="w-full space-y-4 mb-6">
           <PixelButton
-            onClick={() => {}}
+            onClick={() => { }}
             className="w-full p-4 text-xl"
           >
             Share
@@ -172,6 +165,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
           <PixelButton
             onClick={startEvolution}
             className="w-full p-4 text-xl"
+            variant="secondary"
           >
             Next
           </PixelButton>
@@ -181,67 +175,61 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   };
 
   const EvolvingStage = () => (
-    <div className="flex flex-col items-center justify-center" style={{marginTop: "60%"}}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        style={{ fontFamily: "PRESS START 2P", fontSize: "3rem" }}
-      >
-        Oh wait!?
-      </motion.div>
+    <div className="flex flex-col items-center justify-center" style={{ marginTop: "60%" }}>
       <PixelMonster isEvolving={evolutionPhase === 'evolving'} />
       <motion.div
         className="text-2xl mt-12"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        style={{ fontFamily: "PRESS START 2P", fontSize: "3rem", textAlign: "center"}}
+        style={{
+          fontFamily: "PRESS START 2P",
+          fontSize: "2rem",
+          textAlign: "center",
+          lineHeight: "1.5"
+        }}
       >
-        {name} is evolving...
+        Oh wait!? <br />
+        <span style={{ marginTop: "1.5rem", display: "block" }}>{name} is evolving ...</span>
       </motion.div>
     </div>
   );
 
   const CompleteStage = () => (
-    <div className="flex flex-col items-center w-full">
-      <motion.div
-        className="text-3xl mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        style={{ fontFamily: "PRESS START 2P", fontSize: "4rem", textAlign: "center", margin: 0}}
-      >
-        {name} has evolved
-      </motion.div>
+    <div className="h-screen flex flex-col items-center w-full">
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.img
+            src={evolvedCacti}
+            alt="Evolved Monster"
+            className="w-[65vw] h-[65vw] object-contain"
+          />
+        </motion.div>
 
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.img 
-          src={evolvedCacti}
-          alt="Evolved Monster"
-        />
-      </motion.div>
+        <motion.div
+          className="text-2xl mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          style={{ fontFamily: "PRESS START 2P", fontSize: "3rem" }}
+        >
+          $19k MKT CAP
+        </motion.div>
+      </div>
 
-      <motion.div
-        className="text-2xl mb-12"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        style={{ fontFamily: "PRESS START 2P", fontSize: "3rem"}}
-      >
-        Mkt Cap: $19k
-      </motion.div>
-
-      <div className="w-full space-y-4" style={{marginTop: "38%"}}>
+      <div className="w-full space-y-4 mb-6">
         <PixelButton
-          onClick={() => {}}
+          onClick={() => { }}
           className="w-full p-4 text-xl"
         >
           Share
         </PixelButton>
         <PixelButton
-          onClick={() => {}}
+          onClick={() => { }}
           className="w-full p-4 text-xl"
+          variant="secondary"
         >
           Home
         </PixelButton>
@@ -250,7 +238,7 @@ const EvolutionScreen = ({ name = "moodi", onComplete }) => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-6 py-12">
+    <div className="h-screen flex flex-col items-center px-6">
       <AnimatePresence mode="wait">
         {stage === 'outcome' && <OutcomeStage />}
         {stage === 'evolving' && <EvolvingStage />}

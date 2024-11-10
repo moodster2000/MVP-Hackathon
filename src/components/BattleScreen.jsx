@@ -20,12 +20,12 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
 
   const attacks = {
     player1: [
-      { type: "grass", name: "Vine Whip", damage: 45, emoji: "🌿" },
-      { type: "normal", name: "Tackle", damage: 40, emoji: "👊" },
+      { type: "grass", name: "Vine Whip", damage: 50, emoji: "🌿" },
+      { type: "normal", name: "Tackle", damage: 50, emoji: "👊" },
     ],
     player2: [
-      { type: "fire", name: "Flame Burst", damage: 25, emoji: "🔥" },
-      { type: "normal", name: "Body Slam", damage: 20, emoji: "💥" },
+      { type: "fire", name: "Flame Burst", damage: 30, emoji: "🔥" },
+      { type: "normal", name: "Body Slam", damage: 30, emoji: "💥" },
     ],
   };
 
@@ -85,15 +85,22 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
     );
 
     setTimeout(() => {
+      let newHealth;
       if (attacker === "player1") {
-        setPlayer2Health((prev) => Math.max(0, prev - selectedAttack.damage));
+        newHealth = Math.max(0, player2Health - selectedAttack.damage);
+        setPlayer2Health(newHealth);
       } else {
-        setPlayer1Health((prev) => Math.max(0, prev - selectedAttack.damage));
+        newHealth = Math.max(0, player1Health - selectedAttack.damage);
+        setPlayer1Health(newHealth);
       }
       setAttackEffect(null);
-      setCurrentAttacker((current) =>
-        current === "player1" ? "player2" : "player1"
-      );
+
+      // Only switch turns if the game isn't ending on this attack
+      if (newHealth > 0) {
+        setCurrentAttacker((current) =>
+          current === "player1" ? "player2" : "player1"
+        );
+      }
     }, 1000);
   };
 
@@ -124,8 +131,8 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       )}
       {type === "normal" && (
         <motion.div
-        className="text-9xl"
-        animate={{ x: [-20, 20, 0] }}
+          className="text-9xl"
+          animate={{ x: [-20, 20, 0] }}
           transition={{ duration: 0.3 }}
         >
           💥
@@ -160,8 +167,8 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       }
       className="w-[45vw] h-[45vw]"
     >
-      <img 
-        src={cacti} 
+      <img
+        src={cacti}
         alt={player1}
         className="w-full h-full object-contain"
       />
@@ -180,8 +187,8 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       }
       className="w-[45vw] h-[45vw]"
     >
-      <img 
-        src={rizzler} 
+      <img
+        src={rizzler}
         alt={player2}
         className="w-full h-full object-contain"
       />
@@ -193,7 +200,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
       <div className="flex-1 flex flex-col">
         {/* Top Pokemon */}
         <div className="mt-8 flex flex-col items-end">
-          <h2 
+          <h2
             className="text-2xl mb-2"
             style={{ fontFamily: "PRESS START 2P", fontSize: "2.5rem" }}
           >
@@ -222,7 +229,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
         {/* Bottom Pokemon */}
         <div className="mb-8">
           <Character1 />
-          <h2 
+          <h2
             className="text-2xl mt-2"
             style={{ fontFamily: "PRESS START 2P", fontSize: "2.5rem" }}
           >
@@ -234,7 +241,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
 
       {/* Battle Log - Moved to bottom */}
       <div className="bg-gray-50 rounded-lg p-4 mb-8">
-        <div 
+        <div
           className="text-sm space-y-1"
           style={{ fontFamily: "PRESS START 2P", fontSize: "1.5rem" }}
         >
@@ -257,7 +264,7 @@ const BattleScreen = ({ player1 = "Moodi", player2 = "Rizzler" }) => {
           animate={{ opacity: 1 }}
           className="absolute inset-0 bg-black/50 flex items-center justify-center"
         >
-          <div 
+          <div
             className="bg-white p-8 rounded-lg text-center"
             style={{ fontFamily: "PRESS START 2P" }}
           >

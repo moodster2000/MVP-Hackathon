@@ -6,6 +6,7 @@ import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
 import LandingPage from './components/LandingPage';
 import SakimonCreator from './components/SakimonCreator';
+import MonsterInfo from './components/MonsterInfo';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/create" element={<SakimonCreator />} />
+              <Route path="/info/:name" element={<MonsterInfo />} />
             </Routes>
           </Router>
         </WalletModalProvider>

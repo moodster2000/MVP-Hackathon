@@ -15,11 +15,11 @@ const LandingPage = () => {
             fontSize: `3rem`
           }}
         >
-          MONSTERS.FUN
+          monsters.fun
         </h1>
 
         <h2
-          className="text-xl mb-12"
+          className="text-md mb-12"
           style={{
             fontFamily: 'PRESS START 2P',
             letterSpacing: '0px',
@@ -28,7 +28,7 @@ const LandingPage = () => {
             fontSize: `2rem`
           }}
         >
-          Where communities become cults
+          where communities become cults
         </h2>
 
         <img
@@ -39,9 +39,9 @@ const LandingPage = () => {
 
         <div className="space-y-4">
           <PixelButton to="/create">
-            Create Your Mon
+            Hatch Your Mon
           </PixelButton>
-          <PixelButton to = "view">
+          <PixelButton to="view" variant="secondary">
             View Mons
           </PixelButton>
         </div>
