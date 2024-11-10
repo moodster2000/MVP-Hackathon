@@ -10,7 +10,7 @@ const UpcomingFight = ({
   player2 = "Rizzler",
   onComplete,
 }) => {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(3);
   const [isBlinking, setIsBlinking] = useState(true);
   const [battleStarted, setBattleStarted] = useState(false);
 

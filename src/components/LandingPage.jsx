@@ -28,7 +28,7 @@ const LandingPage = () => {
             fontSize: `2rem`
           }}
         >
-          The Next-generation Moncoins
+          Where communities become cults
         </h2>
 
         <img
