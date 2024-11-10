@@ -1,20 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import {
-  PublicKey,
-  Transaction,
-  SystemProgram,
-  LAMPORTS_PER_SOL,
-} from "@solana/web3.js";
 import PixelEgg from "./PixelEgg";
 import MonsterDetails from "./MonsterDetails";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import PixelButton from "./PixelButton";
 
 const SakimonCreator = () => {
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction } = useWallet();
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -38,6 +28,7 @@ const SakimonCreator = () => {
   };
 
   const handleHatch = async () => {
+    if (!description) return;
     setIsProcessing(true);
     setTransactionSuccessful(true);
     setIsHatching(true);
@@ -45,38 +36,6 @@ const SakimonCreator = () => {
     setTimeout(() => {
       setShowDetails(true);
     }, 500);
-    // if (!description || !publicKey) return;
-
-    // setIsProcessing(true);
-    // setTransactionSuccessful(true);
-    // try {
-    //   // Create a test transaction (sending 0.01 SOL to a demo address)
-    //   const transaction = new Transaction().add(
-    //     SystemProgram.transfer({
-    //       fromPubkey: publicKey,
-    //       toPubkey: new PublicKey('BuHRzpGi4t9ho8rtBNCKCRrPE26EG2CGsq3YiVCkhXr7'),
-    //       lamports: LAMPORTS_PER_SOL * 0.01, // 0.01 SOL
-    //     })
-    //   );
-
-    //   const signature = await sendTransaction(transaction, connection);
-    //   const confirmation = await connection.confirmTransaction(signature, 'confirmed');
-
-    //   if (confirmation.value.err) {
-    //     throw new Error('Transaction failed: ' + confirmation.value.err.toString());
-    //   }
-
-    //   setTransactionSuccessful(true);
-    //   setIsHatching(true);
-    //   setTimeout(() => {
-    //     setShowDetails(true);
-    //   }, 2000);
-    // } catch (error) {
-    //   console.error('Transaction failed:', error);
-    //   alert(`Transaction failed: ${error.message}`);
-    // } finally {
-    //   setIsProcessing(false);
-    // }
   };
 
   if (showDetails) {
@@ -160,16 +119,6 @@ const SakimonCreator = () => {
               >
                 Next
               </PixelButton>
-            ) : !publicKey ? (
-              <div className="flex justify-center">
-                <WalletMultiButton
-                  className="w-full md:w-[500px] bg-[#6B68C7] hover:bg-[#5856BC] text-white font-mono text-4xl py-4 px-8 rounded-2xl transition-colors duration-200"
-                  style={{
-                    fontFamily: "PRESS START 2P",
-                    fontSize: "1rem",
-                  }}
-                />
-              </div>
             ) : (
               <PixelButton
                 onClick={handleHatch}
@@ -178,11 +127,7 @@ const SakimonCreator = () => {
                   !description || isProcessing ? "opacity-50" : ""
                 }`}
               >
-                {isProcessing
-                  ? "Processing..."
-                  : transactionSuccessful
-                  ? "Hatching..."
-                  : "Hatch for 0.01 SOL"}
+                {isProcessing ? "Processing..." : transactionSuccessful ? "Hatching..." : "Hatch"}
               </PixelButton>
             )}
           </div>
