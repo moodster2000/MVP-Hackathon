@@ -24,7 +24,7 @@ const BattleInfo = ({ name, marketCap = "10,000" }) => {
       </div>
 
       <div
-        className="text-3xl text-center"
+        className="text-3xl text-center text-[#FF4444]"
         style={{ fontFamily: "PRESS START 2P", marginBottom: "5%" }}
       >
         Battle starts in {timeLeft} sec
